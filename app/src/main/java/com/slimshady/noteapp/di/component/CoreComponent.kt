@@ -1,7 +1,7 @@
 package com.slimshady.noteapp.di.component
 
 import android.app.Application
-import com.slimshady.noteapp.App
+import com.slimshady.noteapp.core.App
 import com.slimshady.noteapp.di.builder.ActivityBuilder
 import com.slimshady.noteapp.di.module.ContextModule
 import com.slimshady.noteapp.di.module.DatabaseModule

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_note"
+        android:name="com.slimshady.noteapp.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+
+        <action
+            android:id="@+id/action_nav_home_to_nav_detail"
+            app:destination="@id/nav_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.slimshady.noteapp.ui.note.NoteFragment"
+        android:label="Note"
+        tools:layout="@layout/fragment_note">
+        <action
+            android:id="@+id/action_nav_drug_to_nav_detail"
+            app:destination="@id/nav_note" />
+    </fragment>
+
+
+</navigation>

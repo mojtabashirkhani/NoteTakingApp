@@ -1,6 +1,6 @@
 package com.slimshady.noteapp.ui.home
 
-import androidx.lifecycle.ViewModel
+import com.slimshady.noteapp.ui.base.BaseViewModel
 
-class HomeViewModel: ViewModel() {
+class HomeViewModel: BaseViewModel() {
 }

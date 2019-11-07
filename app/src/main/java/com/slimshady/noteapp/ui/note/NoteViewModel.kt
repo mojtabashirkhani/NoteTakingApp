@@ -1,7 +1,7 @@
 package com.slimshady.noteapp.ui.note
 
-import androidx.lifecycle.ViewModel
+import com.slimshady.noteapp.ui.base.BaseViewModel
 
-class NoteViewModel: ViewModel() {
+class NoteViewModel: BaseViewModel() {
 
 }
