@@ -1,4 +1,4 @@
-package com.slimshady.noteapp
+package com.slimshady.noteapp.ui
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -6,9 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
+import com.slimshady.noteapp.R
 import com.slimshady.noteapp.databinding.ActivityMainBinding
-
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +15,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding :  ActivityMainBinding
-                =  DataBindingUtil.setContentView(this, R.layout.activity_main)
+                =  DataBindingUtil.setContentView(this,
+            R.layout.activity_main
+        )
         setSupportActionBar(binding.toolbar)
 
         binding.fab.setOnClickListener { view ->
