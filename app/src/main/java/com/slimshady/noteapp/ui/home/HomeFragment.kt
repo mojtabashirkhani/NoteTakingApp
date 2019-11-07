@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil.inflate
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.slimshady.noteapp.R
@@ -18,7 +20,7 @@ class HomeFragment : DaggerFragment(){
     companion object {
         val FRAGMENT_NAME: String = HomeFragment::class.java.name
     }
-    @Inject
+   /* @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel: HomeViewModel by lazy { ViewModelProviders.of(this,viewModelFactory).get(HomeViewModel::class.java) }
     val adapter : HomeAdapter by lazy { HomeAdapter(arrayListOf()) }
@@ -29,28 +31,28 @@ class HomeFragment : DaggerFragment(){
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*with(viewModel) {
-            homeData.observe(this@HomeFragment, Observer {
+        with(viewModel) {
+           *//* homeData.observe(this@HomeFragment, Observer {
                 initView(it)
             }
             )
             error.observe(this@HomeFragment, Observer {
-                progressBar_home.visibility= View.GONE
                 Toast.makeText(context, "${it?.message}", Toast.LENGTH_LONG).show()
-            })
-        }*/
-    }
-
-  /*  private fun initView(it: FoodDto?) {
-        rv_main_home.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        rv_main_home.adapter = adapter
-        progressBar_home.visibility= View.GONE
-        if (it!!.results.isNotEmpty()) {
-            adapter.clear()
-            adapter.add(it.results)
-
-        }else{
-            Toast.makeText(context, context?.getString(R.string.empty_list), android.widget.Toast.LENGTH_LONG).show()
+            })*//*
         }
     }*/
+
+
+    /*  private fun initView(it: FoodDto?) {
+          rv_main_home.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+          rv_main_home.adapter = adapter
+          progressBar_home.visibility= View.GONE
+          if (it!!.results.isNotEmpty()) {
+              adapter.clear()
+              adapter.add(it.results)
+
+          }else{
+              Toast.makeText(context, context?.getString(R.string.empty_list), android.widget.Toast.LENGTH_LONG).show()
+          }
+      }*/
 }

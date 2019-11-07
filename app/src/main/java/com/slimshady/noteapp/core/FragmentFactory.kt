@@ -2,7 +2,8 @@ package com.slimshady.noteapp.core
 
 import androidx.fragment.app.FragmentManager
 import com.slimshady.noteapp.ui.home.HomeFragment
-import com.slimshady.noteapp.ui.note.NoteFragment
+import com.slimshady.noteapp.ui.note.AddNoteFragment
+import com.slimshady.noteapp.ui.note.ShowNoteFragment
 
 object FragmentFactory {
 
@@ -14,12 +15,20 @@ object FragmentFactory {
         return fragment as HomeFragment
     }
 
-    fun getNoteFragment(supportFragmentManager: FragmentManager): NoteFragment{
-        var fragment = supportFragmentManager.findFragmentByTag(NoteFragment.FRAGMENT_NAME)
+    fun getShowNoteFragment(supportFragmentManager: FragmentManager): ShowNoteFragment{
+        var fragment = supportFragmentManager.findFragmentByTag(ShowNoteFragment.FRAGMENT_NAME)
         if (fragment == null){
-            fragment = NoteFragment()
+            fragment = ShowNoteFragment()
         }
-        return fragment as NoteFragment
+        return fragment as ShowNoteFragment
+    }
+
+    fun getAddNoteFragment(supportFragmentManager: FragmentManager): AddNoteFragment{
+        var fragment = supportFragmentManager.findFragmentByTag(AddNoteFragment.FRAGMENT_NAME)
+        if (fragment == null){
+            fragment = AddNoteFragment()
+        }
+        return fragment as AddNoteFragment
     }
 
 }

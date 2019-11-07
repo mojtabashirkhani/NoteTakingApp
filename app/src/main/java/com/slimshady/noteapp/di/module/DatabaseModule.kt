@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.room.Room
 import com.slimshady.noteapp.data.db.AppDatabase
 import com.slimshady.noteapp.data.db.NoteDao
+import com.slimshady.noteapp.data.repository.NoteRepository
+import com.slimshady.noteapp.data.repository.NoteRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -23,6 +25,11 @@ class DatabaseModule {
     @Provides
     fun provideUserDao(appDataBase: AppDatabase): NoteDao {
         return appDataBase.noteDao()
+    }
+
+    @Provides
+    fun provideRepository(database: AppDatabase): NoteRepository {
+        return NoteRepositoryImpl(database)
     }
 
 }

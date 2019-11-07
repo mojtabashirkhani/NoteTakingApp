@@ -11,8 +11,6 @@ interface NoteDao {
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     fun insertNote(note: Note)
 
-    @Insert (onConflict = OnConflictStrategy.REPLACE)
-    fun insertNotes(note: List<Note>)
 
     @Query("SELECT * FROM note")
     fun getAllNotes(): Flowable<List<Note>>
@@ -24,10 +22,10 @@ interface NoteDao {
     fun editNote(note: Note)
 
     @Delete
-    fun deleteNote(note: Note): Single<Note>
+    fun deleteNote(note: Note)
 
     @Query("Delete FROM note")
-    fun deleteAllNotes(): Flowable<List<Note>>
+    fun deleteAllNotes()
 
 
 }

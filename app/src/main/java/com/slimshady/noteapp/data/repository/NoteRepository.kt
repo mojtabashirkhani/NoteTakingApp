@@ -1,17 +1,17 @@
 package com.slimshady.noteapp.data.repository
 
 import com.slimshady.noteapp.data.model.Note
-import io.reactivex.disposables.Disposable
+import io.reactivex.Flowable
+import io.reactivex.Single
 
 interface NoteRepository {
 
 
-    fun insertNote(note: Note): Disposable
-    fun insertNotes(note: List<Note>): Disposable
-    fun deleteNote(note: Note): Disposable
-    fun deleteAllNote(): Disposable
-    fun editNote(note: Note): Disposable
-    fun getAllNotes(): Disposable
-    fun getNoteById(id: Int): Disposable
+    fun insertNote(note: Note)
+    fun deleteNote(note: Note)
+    fun deleteAllNote()
+    fun editNote(note: Note)
+    fun getAllNotes(): Flowable<List<Note>>
+    fun getNoteById(id: Int):  Single<Note>
 
 }
