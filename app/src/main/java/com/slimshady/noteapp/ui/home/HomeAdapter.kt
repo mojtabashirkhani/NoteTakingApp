@@ -9,8 +9,11 @@ import com.slimshady.noteapp.databinding.ItemNoteBinding
 import com.slimshady.noteapp.ui.base.DataBindingViewHolder
 import com.slimshady.noteapp.BR.item
 import com.slimshady.noteapp.ui.listener.HomeInteractionListener
+import kotlinx.android.synthetic.main.item_note.view.*
 
-class HomeAdapter(private val notes: MutableList<Note>, private val homeInteractionListener: HomeInteractionListener?) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(private val notes: MutableList<Note>, private val homeToAddNoteListener: HomeInteractionListener?,
+                  private val homeToShowNoteListener: HomeInteractionListener?, private val deleteNote: HomeInteractionListener?)
+    : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding  = ItemNoteBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -39,8 +42,17 @@ class HomeAdapter(private val notes: MutableList<Note>, private val homeInteract
         }
 
         init {
+
+            dataBinding.root.img_delete.setOnClickListener {
+                deleteNote?.deleteNote()
+            }
+            dataBinding.root.img_edit.setOnClickListener {
+                homeToAddNoteListener?.homeToEditNote()
+
+            }
+
             dataBinding.root.setOnClickListener {
-                homeInteractionListener?.homeToShowNote()
+                homeToShowNoteListener?.homeToShowNote()
 
             }
         }

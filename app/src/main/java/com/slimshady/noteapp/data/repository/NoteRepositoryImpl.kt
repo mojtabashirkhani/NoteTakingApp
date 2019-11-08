@@ -1,11 +1,16 @@
 package com.slimshady.noteapp.data.repository
 
+import androidx.lifecycle.LiveData
 import com.slimshady.noteapp.data.db.AppDatabase
 import com.slimshady.noteapp.data.model.Note
 import io.reactivex.Flowable
 import io.reactivex.Single
 
 class NoteRepositoryImpl(private val database: AppDatabase): NoteRepository {
+
+    override fun getAllNotesTest(): LiveData<MutableList<Note>> {
+       return database.noteDao().getAllNotesTest()
+    }
 
     private val TAG = NoteRepositoryImpl::class.java.simpleName
 

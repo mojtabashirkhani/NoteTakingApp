@@ -1,22 +1,49 @@
 package com.slimshady.noteapp.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.slimshady.noteapp.R
 import com.slimshady.noteapp.databinding.ActivityMainBinding
+import com.slimshady.noteapp.ui.home.HomeViewModel
 import com.slimshady.noteapp.ui.listener.NoteInteractionListener
 import com.slimshady.noteapp.ui.listener.HomeInteractionListener
 import dagger.android.support.DaggerAppCompatActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInteractionListener {
 
-    override fun homeToEditNote() {
-        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note)
-    }
+    private val TAG = MainActivity::class.java.simpleName
+
+    private var compositeDisposable = CompositeDisposable()
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel: MainActivityViewModel by lazy { ViewModelProviders.of(this,viewModelFactory).get(
+        MainActivityViewModel::class.java) }
 
     override fun deleteNote() {
 
+        compositeDisposable.add(viewModel.deleteAllNotes()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.d(TAG, "DELETE: deleted successfully")
+
+            }, {t: Throwable? ->
+                Log.d(TAG,"DELETE: ${t?.message}")
+            }))
+
+    }
+
+    override fun homeToEditNote() {
+        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note)
     }
 
 
@@ -33,6 +60,7 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
     }
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding :  ActivityMainBinding
@@ -41,6 +69,7 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
         )
         setSupportActionBar(binding.toolbar)
 //        val navController = findNavController(R.id.nav_host_fragment)
+
 
 
 
@@ -68,4 +97,10 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
+    override fun onStop() {
+        super.onStop()
+        compositeDisposable.dispose()
+    }
+
 }

@@ -18,6 +18,9 @@ class HomeViewModel @Inject constructor(var noteRepository: NoteRepository) : Vi
 /*    private val getAllNotes = MutableLiveData<MutableList<Note>>().apply {
         value = getAllNotes().
     }*/
+    fun getAllNotesTest(): LiveData<MutableList<Note>>{
+    return noteRepository.getAllNotesTest()
+}
 
     fun getAllNotes(): LiveData<MutableList<Note>> {
         return noteRepository.getAllNotes()
@@ -35,6 +38,8 @@ class HomeViewModel @Inject constructor(var noteRepository: NoteRepository) : Vi
             noteRepository.deleteNote(note)
         }
     }
+
+
 
 
 

@@ -21,6 +21,7 @@
     <include
         android:id="@+id/empty_layout"
         layout="@layout/empty_layout"
+        android:visibility="gone"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

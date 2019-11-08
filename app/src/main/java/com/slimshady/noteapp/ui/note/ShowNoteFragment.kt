@@ -8,15 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.slimshady.noteapp.R
-import com.slimshady.noteapp.databinding.FragmentAddNoteBinding
 import com.slimshady.noteapp.databinding.FragmentShowNoteBinding
-import com.slimshady.noteapp.ui.home.HomeFragment
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class ShowNoteFragment: DaggerFragment() {
 
-    private val TAG: String = HomeFragment::class.java.simpleName
+    private val TAG: String = ShowNoteFragment::class.java.simpleName
 
     companion object {
         val FRAGMENT_NAME: String = ShowNoteFragment::class.java.name
@@ -41,10 +39,6 @@ class ShowNoteFragment: DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(viewModel) {
-
-
-        }
     }
 
 }

@@ -2,6 +2,7 @@ package com.slimshady.noteapp.ui.home
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,25 +17,41 @@ import com.slimshady.noteapp.data.model.Note
 import com.slimshady.noteapp.databinding.FragmentHomeBinding
 import com.slimshady.noteapp.ui.listener.HomeInteractionListener
 import dagger.android.support.DaggerFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.item_note.*
 import javax.inject.Inject
 
 class HomeFragment : DaggerFragment(){
+
     private val TAG: String = HomeFragment::class.java.simpleName
 
     private var homeToAddNoteListener: HomeInteractionListener? = null
     private var homeToShowNoteListener: HomeInteractionListener? = null
+    private var deleteNote: HomeInteractionListener? = null
 
     companion object {
         val FRAGMENT_NAME: String = HomeFragment::class.java.name
     }
+
+    private var compositeDisposable = CompositeDisposable()
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel: HomeViewModel by lazy { ViewModelProviders.of(this,viewModelFactory).get(HomeViewModel::class.java) }
-    val adapter : HomeAdapter by lazy { HomeAdapter(arrayListOf(), homeToShowNoteListener) }
+    val adapter : HomeAdapter by lazy { HomeAdapter(arrayListOf(), homeToShowNoteListener, homeToAddNoteListener, deleteNote) }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding : FragmentHomeBinding = inflate(inflater, R.layout.fragment_home, container, false)
         binding.lifecycleOwner = this
+
+
+
+       /* viewModel.getAllNotes().observe(this, Observer {
+            initView(it)
+        })*/
+
 
         binding.fab.setOnClickListener {
             homeToAddNoteListener?.homeToAddNote()
@@ -47,9 +64,14 @@ class HomeFragment : DaggerFragment(){
         super.onViewCreated(view, savedInstanceState)
         with(viewModel) {
 
-            getAllNotes().observe(this@HomeFragment, Observer {
+            getAllNotesTest().observe(this@HomeFragment, Observer {
                 initView(it)
             })
+
+/*            img_delete.setOnClickListener {
+                deleteAllNotes()
+            }*/
+
 
 
         }
@@ -65,6 +87,7 @@ class HomeFragment : DaggerFragment(){
               adapter.add(it)
 
           } else {
+              adapter.clear()
               Toast.makeText(context, context?.getString(R.string.empty_list), android.widget.Toast.LENGTH_LONG).show()
           }
       }
@@ -75,6 +98,7 @@ class HomeFragment : DaggerFragment(){
         if (context is HomeInteractionListener ){
             homeToAddNoteListener = context
             homeToShowNoteListener = context
+            deleteNote = context
 
 
         }  else {
@@ -87,7 +111,9 @@ class HomeFragment : DaggerFragment(){
         super.onDetach()
         homeToAddNoteListener = null
         homeToShowNoteListener = null
+        deleteNote = null
 
+        compositeDisposable.dispose()
     }
 
 }
