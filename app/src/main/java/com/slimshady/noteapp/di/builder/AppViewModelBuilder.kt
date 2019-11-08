@@ -15,7 +15,15 @@ abstract class AppViewModelBuilder {
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     abstract fun bindHomeViewModel(homeViewModel: HomeViewModel): ViewModel
-    abstract fun bindShowNoteViewModel(showNoteViewModel: ShowNoteViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddNoteViewModel::class)
     abstract fun bindAddNoteViewModel(addNoteViewModel: AddNoteViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ShowNoteViewModel::class)
+    abstract fun bindShowNoteViewModel(showNoteViewModel: ShowNoteViewModel): ViewModel
 
 }

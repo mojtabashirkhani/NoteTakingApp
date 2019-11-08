@@ -1,6 +1,6 @@
 package com.slimshady.noteapp.di.builder
 
-import com.slimshady.noteapp.ui.MainActivity
+import com.slimshady.noteapp.ui.main.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

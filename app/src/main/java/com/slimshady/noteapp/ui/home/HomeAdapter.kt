@@ -9,7 +9,7 @@ import com.slimshady.noteapp.databinding.ItemNoteBinding
 import com.slimshady.noteapp.ui.base.DataBindingViewHolder
 import com.slimshady.noteapp.BR.item
 
-class HomeAdapter(private val notes: List<Note>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(private val notes: MutableList<Note>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding  = ItemNoteBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -22,6 +22,15 @@ class HomeAdapter(private val notes: List<Note>) : RecyclerView.Adapter<HomeAdap
         holder.onBind(notes[position])
     }
 
+    fun add(list: MutableList<Note>) {
+        notes.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    fun clear() {
+        notes.clear()
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(dataBinding: ViewDataBinding): DataBindingViewHolder<Note>(dataBinding){
         override fun onBind(t: Note): Unit = with(t) {

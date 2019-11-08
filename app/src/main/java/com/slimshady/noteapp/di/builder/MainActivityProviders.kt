@@ -8,9 +8,14 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class MainActivityProviders{
+
     @ContributesAndroidInjector
     abstract fun provideHomeFragment(): HomeFragment
+
+    @ContributesAndroidInjector
     abstract fun provideShowNoteFragment(): ShowNoteFragment
+
+    @ContributesAndroidInjector
     abstract fun provideAddNoteFragment(): AddNoteFragment
 
 }

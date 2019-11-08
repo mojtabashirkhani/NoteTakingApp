@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_delete"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="parent"
+                android:onClick=""/>
 
             <ImageView
                 android:id="@+id/img_edit"

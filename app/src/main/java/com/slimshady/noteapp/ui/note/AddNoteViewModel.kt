@@ -18,6 +18,7 @@ class AddNoteViewModel @Inject constructor(var noteRepository: NoteRepository): 
     fun editNote(note: Note): Completable{
         return Completable.fromAction{
             noteRepository.editNote(note)
+
         }
     }
 
