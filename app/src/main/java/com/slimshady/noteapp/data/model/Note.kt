@@ -4,9 +4,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import java.io.Serializable
+import java.lang.reflect.Constructor
 
 @Entity(tableName = "note")
 data class Note (
+
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo
@@ -19,4 +22,8 @@ data class Note (
     var description: String? = ""
 
 
-)
+
+) : Serializable {
+    @Ignore constructor(title: String?, description: String?) : this()
+
+}

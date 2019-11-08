@@ -47,12 +47,6 @@ class HomeFragment : DaggerFragment(){
         binding.lifecycleOwner = this
 
 
-
-       /* viewModel.getAllNotes().observe(this, Observer {
-            initView(it)
-        })*/
-
-
         binding.fab.setOnClickListener {
             homeToAddNoteListener?.homeToAddNote()
 
@@ -68,9 +62,9 @@ class HomeFragment : DaggerFragment(){
                 initView(it)
             })
 
-/*            img_delete.setOnClickListener {
-                deleteAllNotes()
-            }*/
+           /* getAllNotes().observe(this@HomeFragment, Observer {
+                initView(it)
+            })*/
 
 
 
@@ -88,7 +82,7 @@ class HomeFragment : DaggerFragment(){
 
           } else {
               adapter.clear()
-              Toast.makeText(context, context?.getString(R.string.empty_list), android.widget.Toast.LENGTH_LONG).show()
+              Toast.makeText(context, context?.getString(R.string.empty_list), Toast.LENGTH_LONG).show()
           }
       }
 

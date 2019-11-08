@@ -2,12 +2,14 @@ package com.slimshady.noteapp.ui.note
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.slimshady.noteapp.R
@@ -45,20 +47,42 @@ class AddNoteFragment: DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val id = arguments?.getInt("edit_note")
+
         val binding : FragmentAddNoteBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_add_note, container, false)
         binding.lifecycleOwner = this
 
+        if (id != null) {
+            viewModel.getNoteById(id).observe(this, Observer {
+                binding.edtTitle.text = Editable.Factory.getInstance().newEditable( it.title)
+                binding.edtDescription.text = Editable.Factory.getInstance().newEditable(it.description)
+            })
+        }
+
         binding.btnSave.setOnClickListener {
 
-           compositeDisposable.add( viewModel.insertNote(Note(0,edt_title.text.toString(), edt_description.text.toString()))
-               .subscribeOn(Schedulers.io())
-               .observeOn(AndroidSchedulers.mainThread()).subscribe ({
-                   Log.d(TAG,"INSERT: item inserted in table")
-               }, { throwable ->
-                   Log.e(TAG,"Error: INSERT "+throwable.message)
-               }
-            ))
+            if (id == null){
+                compositeDisposable.add( viewModel.insertNote(Note(0, edt_title.text.toString(), edt_description.text.toString()))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe ({
+                        Log.d(TAG,"INSERT: item inserted in table")
+                    }, { throwable ->
+                        Log.e(TAG,"Error: INSERT "+throwable.message)
+                    }
+                    ))
+            } else {
+                compositeDisposable.add( viewModel.editNote(Note(0,edt_title.text.toString(), edt_description.text.toString()))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe ({
+                        Log.d(TAG,"INSERT: item inserted in table")
+                    }, { throwable ->
+                        Log.e(TAG,"Error: INSERT "+throwable.message)
+                    }
+                    ))
+            }
+
+
             noteInteractionListener?.noteToHome()
         }
         return binding.root

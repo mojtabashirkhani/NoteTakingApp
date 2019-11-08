@@ -2,11 +2,14 @@ package com.slimshady.noteapp.ui.main
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.slimshady.noteapp.R
+import com.slimshady.noteapp.data.model.Note
 import com.slimshady.noteapp.databinding.ActivityMainBinding
 import com.slimshady.noteapp.ui.home.HomeViewModel
 import com.slimshady.noteapp.ui.listener.NoteInteractionListener
@@ -28,9 +31,9 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
     private val viewModel: MainActivityViewModel by lazy { ViewModelProviders.of(this,viewModelFactory).get(
         MainActivityViewModel::class.java) }
 
-    override fun deleteNote() {
+    override fun deleteNote(note: Note) {
 
-        compositeDisposable.add(viewModel.deleteAllNotes()
+        compositeDisposable.add(viewModel.deleteNote(note)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -42,8 +45,10 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
 
     }
 
-    override fun homeToEditNote() {
-        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note)
+    override fun homeToEditNote(id: Int) {
+        val args = Bundle()
+        args.putInt("edit_note", id)
+        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note, args)
     }
 
 
@@ -51,8 +56,10 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
         findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note)
     }
 
-    override fun homeToShowNote() {
-        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_show_note)
+    override fun homeToShowNote(note: Note) {
+        val args = Bundle()
+        args.putSerializable("show_note",note)
+        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_show_note, args)
     }
 
     override fun noteToHome() {
@@ -77,7 +84,7 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
 
     }
 
-  /*  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
@@ -87,11 +94,22 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+        compositeDisposable.add(viewModel.deleteAllNotes()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.d(TAG, "DELETE: deleted successfully")
+
+            }, {t: Throwable? ->
+                Log.d(TAG,"DELETE: ${t?.message}")
+            }))
+
         return when (item.itemId) {
             R.id.action_delete -> true
             else -> super.onOptionsItemSelected(item)
         }
-    }*/
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)

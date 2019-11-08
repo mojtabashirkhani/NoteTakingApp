@@ -24,6 +24,7 @@ class HomeAdapter(private val notes: MutableList<Note>, private val homeToAddNot
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(notes[position])
+
     }
 
     fun add(list: MutableList<Note>) {
@@ -43,16 +44,19 @@ class HomeAdapter(private val notes: MutableList<Note>, private val homeToAddNot
 
         init {
 
+
             dataBinding.root.img_delete.setOnClickListener {
-                deleteNote?.deleteNote()
+                deleteNote?.deleteNote(notes[adapterPosition])
             }
+
             dataBinding.root.img_edit.setOnClickListener {
-                homeToAddNoteListener?.homeToEditNote()
+                notes[adapterPosition].id?.let { it1 -> homeToAddNoteListener?.homeToEditNote(it1) }
 
             }
 
             dataBinding.root.setOnClickListener {
-                homeToShowNoteListener?.homeToShowNote()
+                homeToShowNoteListener?.
+                    homeToShowNote(notes[adapterPosition])
 
             }
         }

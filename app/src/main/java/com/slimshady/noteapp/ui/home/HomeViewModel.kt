@@ -24,7 +24,7 @@ class HomeViewModel @Inject constructor(var noteRepository: NoteRepository) : Vi
 
     fun getAllNotes(): LiveData<MutableList<Note>> {
         return noteRepository.getAllNotes()
-            .flatMap { Flowable.fromIterable(it) }
+            .concatMap { Flowable.fromIterable(it) }
             .toList() //Debugger does not enter here
             .toFlowable()
             .onErrorReturn { Collections.emptyList() }
@@ -32,12 +32,7 @@ class HomeViewModel @Inject constructor(var noteRepository: NoteRepository) : Vi
             .to { LiveDataReactiveStreams.fromPublisher(it) }
     }
 
-    fun deleteNote(note: Note): Completable {
 
-        return Completable.fromAction {
-            noteRepository.deleteNote(note)
-        }
-    }
 
 
 
