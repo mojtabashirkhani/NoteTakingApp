@@ -18,6 +18,12 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <include
+        android:id="@+id/empty_layout"
+        layout="@layout/empty_layout"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
