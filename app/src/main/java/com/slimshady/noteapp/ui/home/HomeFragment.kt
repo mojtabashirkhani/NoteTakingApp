@@ -31,13 +31,12 @@ class HomeFragment : DaggerFragment(){
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel: HomeViewModel by lazy { ViewModelProviders.of(this,viewModelFactory).get(HomeViewModel::class.java) }
-    val adapter : HomeAdapter by lazy { HomeAdapter(arrayListOf()) }
+    val adapter : HomeAdapter by lazy { HomeAdapter(arrayListOf(), homeToShowNoteListener) }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding : FragmentHomeBinding = inflate(inflater, R.layout.fragment_home, container, false)
         binding.lifecycleOwner = this
 
         binding.fab.setOnClickListener {
-//            homeInteractionListener = HomeInteractionListener()
             homeToAddNoteListener?.homeToAddNote()
 
         }

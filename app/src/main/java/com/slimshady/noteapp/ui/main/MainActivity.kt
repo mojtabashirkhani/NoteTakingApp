@@ -11,16 +11,24 @@ import dagger.android.support.DaggerAppCompatActivity
 
 class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInteractionListener {
 
+    override fun homeToEditNote() {
+        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note)
+    }
+
+    override fun deleteNote() {
+
+    }
+
 
     override fun homeToAddNote() {
-            findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note)
+        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note)
     }
 
     override fun homeToShowNote() {
         findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_show_note)
     }
 
-    override fun addNoteToHome() {
+    override fun noteToHome() {
         findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_add_note_to_nav_home)
     }
 
