@@ -25,8 +25,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note)
         }
 
     }

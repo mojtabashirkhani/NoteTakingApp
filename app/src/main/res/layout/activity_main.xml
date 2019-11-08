@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout
-
-    >
-
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    >
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
@@ -29,6 +29,10 @@
         android:id="@+id/content_main"
         layout="@layout/content_main" />
 
+    <include
+        android:id="@+id/empty_layout"
+        layout="@layout/empty_layout"
+        />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -22,7 +22,7 @@
         android:label="Edit Note"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_nav_home_to_nav_edit_note"
+            android:id="@+id/action_nav_home_to_nav_add_note"
             app:destination="@id/nav_add_note" />
         <action
             android:id="@+id/action_nav_home_to_nav_show_note"
