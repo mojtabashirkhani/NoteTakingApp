@@ -2,14 +2,12 @@ package com.slimshady.noteapp.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.slimshady.noteapp.BR.item
 import com.slimshady.noteapp.data.model.Note
 import com.slimshady.noteapp.databinding.ItemNoteBinding
 import com.slimshady.noteapp.ui.base.DataBindingViewHolder
-import com.slimshady.noteapp.BR.item
 import com.slimshady.noteapp.ui.listener.HomeInteractionListener
-import kotlinx.android.synthetic.main.item_note.view.*
 
 class HomeAdapter(private val notes: MutableList<Note>, private val homeToAddNoteListener: HomeInteractionListener?,
                   private val homeToShowNoteListener: HomeInteractionListener?, private val deleteNote: HomeInteractionListener?)
@@ -37,28 +35,17 @@ class HomeAdapter(private val notes: MutableList<Note>, private val homeToAddNot
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(dataBinding: ViewDataBinding): DataBindingViewHolder<Note>(dataBinding){
+    inner class ViewHolder(dataBinding: ItemNoteBinding): DataBindingViewHolder<Note>(dataBinding){
         override fun onBind(t: Note): Unit = with(t) {
             dataBinding.setVariable(item,t)
         }
 
         init {
 
+            dataBinding.deleteListener =  deleteNote
+            dataBinding.editListener = homeToAddNoteListener
+            dataBinding.showListener = homeToShowNoteListener
 
-            dataBinding.root.img_delete.setOnClickListener {
-                deleteNote?.deleteNote(notes[adapterPosition])
-            }
-
-            dataBinding.root.img_edit.setOnClickListener {
-                notes[adapterPosition].id?.let { it1 -> homeToAddNoteListener?.homeToEditNote(it1) }
-
-            }
-
-            dataBinding.root.setOnClickListener {
-                homeToShowNoteListener?.
-                    homeToShowNote(notes[adapterPosition])
-
-            }
         }
 
     }

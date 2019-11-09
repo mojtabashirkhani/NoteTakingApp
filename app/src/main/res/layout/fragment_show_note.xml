@@ -3,6 +3,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="note"
+            type="com.slimshady.noteapp.data.model.Note" />
+
+    </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,6 +23,7 @@
             android:layout_marginTop="16dp"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:text="@{note.title}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:textSize="14sp"
+            android:text="@{note.description}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 

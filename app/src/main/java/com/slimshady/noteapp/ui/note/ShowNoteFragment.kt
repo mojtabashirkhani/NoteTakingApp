@@ -39,9 +39,10 @@ class ShowNoteFragment: DaggerFragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_show_note, container, false)
 
         binding.lifecycleOwner = this
+        binding.note = note
 
-        binding.txtTitle.text = note.title
-        binding.txtDescription.text = note.description
+        /*binding.txtTitle.text = note.title
+        binding.txtDescription.text = note.description*/
 
         return binding.root
     }

@@ -9,6 +9,19 @@
         <variable
             name="item"
             type="com.slimshady.noteapp.data.model.Note" />
+
+        <variable
+            name="editListener"
+            type="com.slimshady.noteapp.ui.listener.HomeInteractionListener" />
+
+        <variable
+            name="deleteListener"
+            type="com.slimshady.noteapp.ui.listener.HomeInteractionListener" />
+
+        <variable
+            name="showListener"
+            type="com.slimshady.noteapp.ui.listener.HomeInteractionListener" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -17,6 +30,7 @@
         android:layout_marginBottom="8dp"
         android:background="#f5f5f5"
         android:padding="16dp"
+        android:onClick="@{() -> showListener.homeToShowNote(item)}"
         card_view:cardCornerRadius="3dp"
         card_view:cardElevation="4dp"
         card_view:cardUseCompatPadding="true">
@@ -30,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_delete"
+                android:onClick="@{() -> deleteListener.deleteNote(item)}"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -38,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_edit"
+                android:onClick="@{() -> editListener.homeToEditNote(item.id)}"
                 card_view:layout_constraintEnd_toStartOf="@+id/img_delete"
                 card_view:layout_constraintTop_toTopOf="parent" />
 

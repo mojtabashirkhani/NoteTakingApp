@@ -77,7 +77,7 @@ class AddNoteFragment: DaggerFragment() {
                     }))
 
             } else {
-                compositeDisposable.add( viewModel.editNote(Note(UUID.randomUUID().toString(), edt_title.text.toString(), edt_description.text.toString()))
+                compositeDisposable.add( viewModel.editNote(Note(id, edt_title.text.toString(), edt_description.text.toString()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe ({
                         Log.d(TAG,"INSERT: item inserted in table")

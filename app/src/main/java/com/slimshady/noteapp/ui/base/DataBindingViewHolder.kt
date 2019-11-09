@@ -19,5 +19,6 @@ abstract class DataBindingViewHolder<T>
             this(DataBindingUtil.inflate<ViewDataBinding>(inflater, layoutId, parent, attachToParent))
 
 
+
     abstract fun onBind(t: T)
 }
