@@ -6,14 +6,15 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.io.Serializable
 import java.lang.reflect.Constructor
+import java.util.*
 
 @Entity(tableName = "note")
 data class Note (
 
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo
-    var id: Int? = 0,
+    var id: String = UUID.randomUUID().toString(),
 
     @ColumnInfo
     var title: String? = "",
@@ -23,7 +24,7 @@ data class Note (
 
 
 
-) : Serializable {
-    @Ignore constructor(title: String?, description: String?) : this()
+) : Serializable
 
-}
+
+

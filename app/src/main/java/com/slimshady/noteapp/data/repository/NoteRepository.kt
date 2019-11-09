@@ -13,7 +13,7 @@ interface NoteRepository {
     fun deleteAllNote()
     fun editNote(note: Note)
     fun getAllNotes(): Flowable<List<Note>>
-    fun getNoteById(id: Int):  Single<Note>
+    fun getNoteById(id: String):  Single<Note>
     fun getAllNotesTest(): LiveData<MutableList<Note>>
 
 }

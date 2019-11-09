@@ -5,6 +5,6 @@ import com.slimshady.noteapp.data.model.Note
 interface HomeInteractionListener {
     fun homeToAddNote()
     fun homeToShowNote(note: Note)
-    fun homeToEditNote(id: Int)
+    fun homeToEditNote(id: String)
     fun deleteNote(note: Note)
 }

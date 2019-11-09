@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class ShowNoteViewModel @Inject constructor(var noteRepository: NoteRepository): ViewModel() {
 
-    fun getNoteById(id: Int): LiveData<Note>{
+    fun getNoteById(id: String): LiveData<Note>{
         return noteRepository.getNoteById(id)
             .flatMap { Single.just(it) }
 //            .onErrorReturn { Collections.emptyList() }

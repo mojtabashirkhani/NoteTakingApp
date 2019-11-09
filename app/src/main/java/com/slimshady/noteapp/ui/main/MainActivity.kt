@@ -45,9 +45,9 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
 
     }
 
-    override fun homeToEditNote(id: Int) {
+    override fun homeToEditNote(id: String) {
         val args = Bundle()
-        args.putInt("edit_note", id)
+        args.putString("edit_note", id)
         findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note, args)
     }
 

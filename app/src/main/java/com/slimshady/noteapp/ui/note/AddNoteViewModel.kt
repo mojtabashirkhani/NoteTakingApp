@@ -26,7 +26,7 @@ class AddNoteViewModel @Inject constructor(var noteRepository: NoteRepository): 
         }
     }
 
-    fun getNoteById(id: Int): LiveData<Note> {
+    fun getNoteById(id: String): LiveData<Note> {
         return noteRepository.getNoteById(id)
             .flatMap { Single.just(it) }
 //            .onErrorReturn { Collections.emptyList() }

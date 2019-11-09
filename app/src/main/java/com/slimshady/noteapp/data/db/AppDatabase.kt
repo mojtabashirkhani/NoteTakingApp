@@ -8,7 +8,7 @@ import com.slimshady.noteapp.data.model.Note
 abstract class AppDatabase : RoomDatabase() {
     companion object {
         const val DB_NAME = "note.db"
-        const val VERSION = 1
+        const val VERSION = 2
     }
     abstract fun noteDao(): NoteDao
 }

@@ -22,6 +22,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_add_note.*
+import java.util.*
 import javax.inject.Inject
 
 
@@ -47,7 +48,7 @@ class AddNoteFragment: DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val id = arguments?.getInt("edit_note")
+        val id = arguments?.getString("edit_note")
 
         val binding : FragmentAddNoteBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_add_note, container, false)
@@ -63,23 +64,27 @@ class AddNoteFragment: DaggerFragment() {
         binding.btnSave.setOnClickListener {
 
             if (id == null){
-                compositeDisposable.add( viewModel.insertNote(Note(0, edt_title.text.toString(), edt_description.text.toString()))
+
+                compositeDisposable.add( viewModel.insertNote(Note( UUID.randomUUID().toString(),
+                    edt_title.text.toString(), edt_description.text.toString()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe ({
+
                         Log.d(TAG,"INSERT: item inserted in table")
                     }, { throwable ->
+
                         Log.e(TAG,"Error: INSERT "+throwable.message)
-                    }
-                    ))
+                    }))
+
             } else {
-                compositeDisposable.add( viewModel.editNote(Note(0,edt_title.text.toString(), edt_description.text.toString()))
+                compositeDisposable.add( viewModel.editNote(Note(UUID.randomUUID().toString(), edt_title.text.toString(), edt_description.text.toString()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe ({
                         Log.d(TAG,"INSERT: item inserted in table")
                     }, { throwable ->
                         Log.e(TAG,"Error: INSERT "+throwable.message)
-                    }
-                    ))
+                    }))
+
             }
 
 

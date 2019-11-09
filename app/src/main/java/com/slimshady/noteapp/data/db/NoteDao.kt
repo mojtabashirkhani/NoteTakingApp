@@ -20,7 +20,7 @@ interface NoteDao {
     fun getAllNotesTest(): LiveData<MutableList<Note>>
 
     @Query("SELECT * FROM note WHERE id = (:id)")
-    fun getNoteById(id: Int): Single<Note>
+    fun getNoteById(id: String): Single<Note>
 
     @Update
     fun editNote(note: Note)

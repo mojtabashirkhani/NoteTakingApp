@@ -35,7 +35,7 @@ class NoteRepositoryImpl(private val database: AppDatabase): NoteRepository {
     }
 
 
-    override fun getNoteById(id: Int): Single<Note>{
+    override fun getNoteById(id: String): Single<Note>{
         return database.noteDao().getNoteById(id)
     }
 
