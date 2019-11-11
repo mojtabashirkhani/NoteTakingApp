@@ -35,8 +35,9 @@ class AddNoteFragment: DaggerFragment() {
     }
 
     private var noteInteractionListener: NoteInteractionListener? = null
-    private var compositeDisposable = CompositeDisposable()
 
+    @Inject
+    lateinit var compositeDisposable: CompositeDisposable
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

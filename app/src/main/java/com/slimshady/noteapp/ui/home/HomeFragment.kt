@@ -28,27 +28,33 @@ class HomeFragment : DaggerFragment(){
 
     private val TAG: String = HomeFragment::class.java.simpleName
 
-    private var homeToAddNoteListener: HomeInteractionListener? = null
-    private var homeToShowNoteListener: HomeInteractionListener? = null
-    private var deleteNote: HomeInteractionListener? = null
+    private var homeListener: HomeInteractionListener? = null
+   /* private var homeToShowNoteListener: HomeInteractionListener? = null
+    private var deleteNote: HomeInteractionListener? = null*/
 
     companion object {
         val FRAGMENT_NAME: String = HomeFragment::class.java.name
     }
 
-    private var compositeDisposable = CompositeDisposable()
+    /*@Inject
+    lateinit var homeInteractionListener: HomeInteractionListener*/
+
+    @Inject
+    lateinit var compositeDisposable: CompositeDisposable
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private val viewModel: HomeViewModel by lazy { ViewModelProviders.of(this,viewModelFactory).get(HomeViewModel::class.java) }
-    val adapter : HomeAdapter by lazy { HomeAdapter(arrayListOf(), homeToShowNoteListener, homeToAddNoteListener, deleteNote) }
+
+    private val adapter : HomeAdapter by lazy { HomeAdapter(arrayListOf(), homeListener) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding : FragmentHomeBinding = inflate(inflater, R.layout.fragment_home, container, false)
 
         binding.lifecycleOwner = this
 
-        binding.listener = homeToAddNoteListener
+        binding.listener = homeListener
 
         return binding.root
     }
@@ -86,10 +92,10 @@ class HomeFragment : DaggerFragment(){
         super.onAttach(context)
 
         if (context is HomeInteractionListener ){
-            homeToAddNoteListener = context
-            homeToShowNoteListener = context
+            homeListener = context
+           /* homeToShowNoteListener = context
             deleteNote = context
-
+*/
 
         }  else {
             throw RuntimeException(context.toString() + " must implement HomeInteraction") as Throwable
@@ -99,9 +105,9 @@ class HomeFragment : DaggerFragment(){
 
     override fun onDetach() {
         super.onDetach()
-        homeToAddNoteListener = null
-        homeToShowNoteListener = null
-        deleteNote = null
+        homeListener = null
+       /* homeToShowNoteListener = null
+        deleteNote = null*/
 
         compositeDisposable.dispose()
     }

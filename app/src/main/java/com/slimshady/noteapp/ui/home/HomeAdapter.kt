@@ -9,8 +9,8 @@ import com.slimshady.noteapp.databinding.ItemNoteBinding
 import com.slimshady.noteapp.ui.base.DataBindingViewHolder
 import com.slimshady.noteapp.ui.listener.HomeInteractionListener
 
-class HomeAdapter(private val notes: MutableList<Note>, private val homeToAddNoteListener: HomeInteractionListener?,
-                  private val homeToShowNoteListener: HomeInteractionListener?, private val deleteNote: HomeInteractionListener?)
+class HomeAdapter(private val notes: MutableList<Note>, private val homeListener: HomeInteractionListener?)
+
     : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,9 +42,7 @@ class HomeAdapter(private val notes: MutableList<Note>, private val homeToAddNot
 
         init {
 
-            dataBinding.deleteListener =  deleteNote
-            dataBinding.editListener = homeToAddNoteListener
-            dataBinding.showListener = homeToShowNoteListener
+            dataBinding.homeListener =  homeListener
 
         }
 

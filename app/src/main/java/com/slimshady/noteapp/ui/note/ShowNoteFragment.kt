@@ -24,6 +24,7 @@ class ShowNoteFragment: DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private val viewModel: ShowNoteViewModel by lazy { ViewModelProviders.of(this,viewModelFactory).get(
         ShowNoteViewModel::class.java) }
 

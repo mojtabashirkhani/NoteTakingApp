@@ -24,10 +24,12 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
 
     private val TAG = MainActivity::class.java.simpleName
 
-    private var compositeDisposable = CompositeDisposable()
+    @Inject
+    lateinit var compositeDisposable: CompositeDisposable
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private val viewModel: MainActivityViewModel by lazy { ViewModelProviders.of(this,viewModelFactory).get(
         MainActivityViewModel::class.java) }
 
