@@ -1,15 +1,26 @@
 package com.slimshady.noteapp.di.module
 
-import com.slimshady.noteapp.ui.listener.HomeInteractionListener
-import com.slimshady.noteapp.ui.listener.NoteInteractionListener
+import com.slimshady.noteapp.ui.listener.InteractionsListenerImpl
+import com.slimshady.noteapp.ui.main.MainActivity
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ListenerModule(private val homeInteractionListener: HomeInteractionListener?) {
+class ListenerModule {
 
 
+    @Provides
+    @Singleton
+    fun provideMainActivity(): MainActivity{
+        return MainActivity()
+    }
+
+    @Provides
+    @Singleton
+    fun provideInteractionListeners(activity: MainActivity): InteractionsListenerImpl{
+        return InteractionsListenerImpl(activity)
+    }
 
 /*    @Provides
     @Singleton

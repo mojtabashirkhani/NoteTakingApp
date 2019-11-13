@@ -11,18 +11,21 @@ import androidx.navigation.findNavController
 import com.slimshady.noteapp.R
 import com.slimshady.noteapp.data.model.Note
 import com.slimshady.noteapp.databinding.ActivityMainBinding
-import com.slimshady.noteapp.ui.home.HomeViewModel
-import com.slimshady.noteapp.ui.listener.NoteInteractionListener
 import com.slimshady.noteapp.ui.listener.HomeInteractionListener
+import com.slimshady.noteapp.ui.listener.InteractionsListenerImpl
+import com.slimshady.noteapp.ui.listener.NoteInteractionListener
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInteractionListener {
+class MainActivity @Inject constructor(): DaggerAppCompatActivity(), HomeInteractionListener, NoteInteractionListener {
 
     private val TAG = MainActivity::class.java.simpleName
+
+   /* @Inject
+    lateinit var interactionsListenerImpl: InteractionsListenerImpl*/
 
     @Inject
     lateinit var compositeDisposable: CompositeDisposable
@@ -32,6 +35,10 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
 
     private val viewModel: MainActivityViewModel by lazy { ViewModelProviders.of(this,viewModelFactory).get(
         MainActivityViewModel::class.java) }
+
+    private val interactionsListenerImpl: InteractionsListenerImpl = InteractionsListenerImpl(this)
+
+
 
     override fun deleteNote(note: Note) {
 
@@ -44,28 +51,32 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
             }, {t: Throwable? ->
                 Log.d(TAG,"DELETE: ${t?.message}")
             }))
+//        interactionListener.deleteNote(note)
 
     }
 
     override fun homeToEditNote(id: String) {
-        val args = Bundle()
+        /*val args = Bundle()
         args.putString("edit_note", id)
-        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note, args)
+        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note, args)*/
+        interactionsListenerImpl.homeToEditNote(id)
     }
 
 
     override fun homeToAddNote() {
-        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note)
+//        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_add_note)
+        interactionsListenerImpl.homeToAddNote()
     }
 
     override fun homeToShowNote(note: Note) {
-        val args = Bundle()
+        /*val args = Bundle()
         args.putSerializable("show_note",note)
-        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_show_note, args)
+        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_show_note, args)*/
+        interactionsListenerImpl.homeToShowNote(note)
     }
 
     override fun noteToHome() {
-        findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_add_note_to_nav_home)
+        interactionsListenerImpl.noteToHome()
     }
 
 
@@ -80,6 +91,7 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
 //        val navController = findNavController(R.id.nav_host_fragment)
 
 
+//        navigation.homeToAddNote()
 
 
 
@@ -106,6 +118,7 @@ class MainActivity : DaggerAppCompatActivity(), HomeInteractionListener, NoteInt
             }, {t: Throwable? ->
                 Log.d(TAG,"DELETE: ${t?.message}")
             }))
+//        interactionListener.deleteAllNote()
 
         return when (item.itemId) {
             R.id.action_delete -> true

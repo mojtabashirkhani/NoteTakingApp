@@ -7,7 +7,7 @@ import com.slimshady.noteapp.di.module.CompositeDisposableModule
 import com.slimshady.noteapp.di.module.ContextModule
 import com.slimshady.noteapp.di.module.DatabaseModule
 import com.slimshady.noteapp.di.module.ListenerModule
-import com.slimshady.noteapp.ui.listener.HomeInteractionListener
+import com.slimshady.noteapp.ui.listener.InteractionsListenerImpl
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -20,15 +20,16 @@ import javax.inject.Singleton
     ListenerModule::class])
 interface CoreComponent : AndroidInjector<App> {
 
+
     @Component.Builder
     interface Builder {
         @BindsInstance
         fun application(application: Application): Builder
 
-     /*   @BindsInstance
-        fun listenerModule(homeInteractionListener: HomeInteractionListener?): Builder*/
-
         fun build(): CoreComponent
+
+        @BindsInstance
+        fun listenerModule(listenerModule: ListenerModule): Builder
     }
 
 
