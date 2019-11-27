@@ -62,13 +62,9 @@ class HomeFragment : DaggerFragment(){
         super.onViewCreated(view, savedInstanceState)
         with(viewModel) {
 
-            getAllNotesTest().observe(this@HomeFragment, Observer {
+            getAllNotes().observe(this@HomeFragment, Observer {
                 initView(it)
             })
-
-           /* getAllNotes().observe(this@HomeFragment, Observer {
-                initView(it)
-            })*/
 
         }
     }

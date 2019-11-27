@@ -14,10 +14,8 @@ interface NoteDao {
 
 
     @Query("SELECT * FROM note")
-    fun getAllNotes(): Flowable<List<Note>>
+    fun getAllNotes(): Flowable<MutableList<Note>>
 
-    @Query("SELECT * FROM note")
-    fun getAllNotesTest(): LiveData<MutableList<Note>>
 
     @Query("SELECT * FROM note WHERE id = (:id)")
     fun getNoteById(id: String): Single<Note>

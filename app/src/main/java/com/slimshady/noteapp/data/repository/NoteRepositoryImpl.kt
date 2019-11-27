@@ -8,9 +8,7 @@ import io.reactivex.Single
 
 class NoteRepositoryImpl(private val database: AppDatabase): NoteRepository {
 
-    override fun getAllNotesTest(): LiveData<MutableList<Note>> {
-       return database.noteDao().getAllNotesTest()
-    }
+
 
     private val TAG = NoteRepositoryImpl::class.java.simpleName
 
@@ -30,7 +28,7 @@ class NoteRepositoryImpl(private val database: AppDatabase): NoteRepository {
     }
 
 
-    override fun getAllNotes(): Flowable<List<Note>> {
+    override fun getAllNotes(): Flowable<MutableList<Note>> {
         return database.noteDao().getAllNotes()
     }
 

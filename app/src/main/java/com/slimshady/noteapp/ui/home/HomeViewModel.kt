@@ -15,18 +15,11 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(var noteRepository: NoteRepository) : ViewModel() {
 
-/*    private val getAllNotes = MutableLiveData<MutableList<Note>>().apply {
-        value = getAllNotes().
-    }*/
-    fun getAllNotesTest(): LiveData<MutableList<Note>>{
-    return noteRepository.getAllNotesTest()
-}
+
+
 
     fun getAllNotes(): LiveData<MutableList<Note>> {
         return noteRepository.getAllNotes()
-            .concatMap { Flowable.fromIterable(it) }
-            .toList() //Debugger does not enter here
-            .toFlowable()
             .onErrorReturn { Collections.emptyList() }
             .subscribeOn(Schedulers.io())
             .to { LiveDataReactiveStreams.fromPublisher(it) }
